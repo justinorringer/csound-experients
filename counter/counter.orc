@@ -11,7 +11,8 @@ nchnls = 2
 gicount init 0
 gibit   init 3
 
-gklock init 1
+gievent_count init 0
+
 instr 1
     schedule 2, 0, p4
 endin
@@ -29,27 +30,15 @@ count:
         if gibit == 0 then
             gibit = 4
         endif
-        prints "overflow"
-
-        if (gklock != 0) then
-            gklock = 0
-            event "i", 100, 0, 1, .5, 440
-            event "i", 3, 1, 1
-        endif
     endif
 
     print gicount, gibit
+    if gicount == gievent_count then
+overflow:
+        prints "overflow"
+        kgate linen 	.5, 0, 1, .1
+    a1  oscili kgate, 220, 1
+        out a1
+    endif
     rireturn
-endin
-
-instr 3
-unlock:
-    gklock = 1
-    rireturn
-endin
-
-; basic oscilator
-instr 100
-    a1 oscili p4, p5, 1
-    out a1
 endin
