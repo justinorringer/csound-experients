@@ -3,7 +3,8 @@
 ; on overflow, have a sound play
 
 sr = 44100
-ksmps = 32
+kr = 4410
+ksmps = 10
 nchnls = 2
 0dbfs = 1
 
@@ -19,7 +20,6 @@ instr 2
 clock:
     timout 0, 1, count
     reinit clock
-    turnoff
 
 count:
     gicount = gicount + 1
@@ -32,8 +32,8 @@ count:
         prints "overflow"
 
         if (gklock != 0) then
-            event "i", 100, 0, 1, 1000, 440
             gklock = 0
+            event "i", 100, 0, 1, .5, 440
             event "i", 3, 1, 1
         endif
     endif
