@@ -51,7 +51,6 @@ instr Reverb
     outs aReverbL, aReverbR
 endin
 
-schedule(100, 0, 2, 0.5, 440, 0.01, 0.5, 1000, 500)
 schedule("Reverb", 0, -1)
 
 ; 		instr 	2
